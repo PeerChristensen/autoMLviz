@@ -4,10 +4,14 @@
 \alias{auc_bars}
 \title{Function for plotting AUC bars}
 \usage{
-auc_bars(H2OAutoML_object, save_png = F)
+auc_bars(H2OAutoML_object, save_png = F, test_data)
 }
 \arguments{
 \item{H2OAutoML_object}{provided by user}
+
+\item{save_png}{provided by user}
+
+\item{test_data}{provided by user}
 }
 \description{
 Function for plotting AUC bars

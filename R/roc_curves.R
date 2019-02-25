@@ -1,15 +1,20 @@
 #' Functions for plotting roc curves
 #'
 #' @param H2OAutoML_object provided by user
+#' @param plot provided by user
+#' @param best provided by user
+#' @param save_png provided by user
+#' @test_data provided by user
 #'
 #' @export
 #' @import dplyr
 #' @import purrr
 #' @import ggplot2
+#' @import h2o
 #'
 ### function for preparing ROC curves for plotting
 
-roc_curves <- function(H2OAutoML_object, plot = T, best = F, save_png = F) {
+roc_curves <- function(H2OAutoML_object, plot = T, best = F, save_png = F, test_data) {
 
   if (best == T) {
     models <- as.vector(as.character(H2OAutoML_object@leader@model_id)) %>%
@@ -24,7 +29,7 @@ roc_curves <- function(H2OAutoML_object, plot = T, best = F, save_png = F) {
 
   for (i in 1:length(models)) {
 
-    perf <- h2o.performance(models[[i]], test_hf)
+    perf <- h2o.performance(models[[i]], test_data)
     tpr  <- perf@metrics$thresholds_and_metric_scores$tpr
     fpr  <- perf@metrics$thresholds_and_metric_scores$fpr
 

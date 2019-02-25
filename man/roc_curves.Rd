@@ -4,10 +4,18 @@
 \alias{roc_curves}
 \title{Functions for plotting roc curves}
 \usage{
-roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F)
+roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F, test_data)
 }
 \arguments{
 \item{H2OAutoML_object}{provided by user}
+
+\item{plot}{provided by user}
+
+\item{best}{provided by user}
+
+\item{save_png}{provided by user}
+
+\item{test_data}{provided by user}
 }
 \description{
 Functions for plotting roc curves

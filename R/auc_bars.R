@@ -1,12 +1,16 @@
 #' Function for plotting AUC bars
 #' @param H2OAutoML_object provided by user
+#' @param save_png provided by user
+#' @param test_data provided by user
 #'
 #' @export
-#' @import tidyverse
-#'
+#' @import purrr
+#' @import dplyr
+#' @import ggplot2
+#' @import h2o
 #'
 
-auc_bars <- function(H2OAutoML_object, save_png = F) {
+auc_bars <- function(H2OAutoML_object, save_png = F, test_data) {
 
   models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id)) %>%
     map(h2o.getModel)
@@ -15,7 +19,7 @@ auc_bars <- function(H2OAutoML_object, save_png = F) {
 
   for (i in 1:length(models)) {
 
-    perf <- h2o.performance(models[[i]], test_hf)
+    perf <- h2o.performance(models[[i]], test_data)
     auc  <- perf@metrics$AUC
 
     model_id  <- models[[i]]@model_id
