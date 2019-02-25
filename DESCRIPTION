@@ -1,0 +1,11 @@
+Package: autoMLviz
+Type: Package
+Title: Plotting model performances from H2OAutoML objects 
+Version: 0.1.0
+Author: Peer Christensen
+Maintainer: Peer Christensen <hr.pchristensen@gmail.com>
+Description: Compare the top models trained using H20.autoML. Includes ROC curves, variable importance, cumulative gains, lift and response plots 
+License: -
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0.9000
