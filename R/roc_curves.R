@@ -57,6 +57,7 @@ roc_curves <- function(H2OAutoML_object, plot = T, best = F, save_png = F, test_
       ylab('True Positive Rate') +
       ggtitle('ROC curves',
               subtitle = "Comparison of the best models") +
+      theme_light() +
       theme(plot.title    = element_text(size = 16),
             plot.subtitle = element_text(size = 12,face="italic",vjust=-1)) +
       scale_colour_viridis_d("Models")

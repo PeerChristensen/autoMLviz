@@ -39,6 +39,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
             subtitle = "When we apply the model and select x % of customers,\nwhat % of the target class observations can we expect to hit?") +
     labs(x = "Data fraction",
          y = "Cumulative gains") +
+    theme_light() +
     theme(plot.title = element_text(size = 16),
           plot.subtitle = element_text(size = 14, face = "italic",vjust=-1))
 
@@ -58,6 +59,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
             subtitle = "When we apply the model and select x % of customers,\nhow many times better is that than using no model?") +
     labs(x = "Data fraction",
          y = "Cumulative lift") +
+    theme_light() +
     theme(plot.title = element_text(size = 16),
           plot.subtitle = element_text(size = 14, face = "italic",vjust=-1))
 
@@ -77,6 +79,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
             subtitle = "When we apply the model and select x % of customers, \nwhat is the expected % of target class observations in the selection?") +
     labs(x = "Data fraction",
          y = "Cumulative response") +
+    theme_light() +
     theme(plot.title = element_text(size = 16),
           plot.subtitle = element_text(size = 14, face = "italic",vjust=-1))
 

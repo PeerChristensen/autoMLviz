@@ -4,20 +4,106 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 
 ## What it does
 
-The package currently contains functions for plotting ROC curves, AUC (bar charts), as well as gains, lift and response charts for communicating classification model performance.
+The package currently contains functions for plotting ROC curves, AUC bar charts, as well as gains, lift and response charts for communicating classification model performance.
 
 ## Installation
 
-```{r eval=F}
+```{r, eval = F}
 install.packages("devtools")
 library(devtools)
 
 install_github("PeerCHristensen/autoMLviz")
 ```
 
-More to come..
+## Automated machine learning with H2O
+
+We'll load some preprocessed sample data and create train, validation and test sets with the caret package before creating an H2OAutoML object, which will contain the performance metrics from multiple models.
+
+```{r warning = F, message = F}
+library(tidyverse)
+library(caret)
+library(h2o)
+
+h2o.init()
+
+h2o.no_progress()
+
+df <- read_csv("https://raw.github.com/peerchristensen/churn_prediction/master/telecom_churn_prep.csv") %>%
+  mutate_if(is.character,factor)
+
+index <- createDataPartition(df$Churn, p = 0.7, list = FALSE)
+
+train_data     <- df[index, ]
+val_test_data  <- df[-index, ]
+
+index2 <- createDataPartition(val_test_data$Churn, p = 0.5, list = FALSE)
+
+valid_data <- val_test_data[-index2, ]
+test_data  <- val_test_data[index2, ]
+
+train_hf <- as.h2o(train_data)
+valid_hf <- as.h2o(valid_data)
+test_hf  <- as.h2o(test_data)
+
+outcome    <- "Churn"
+predictors <- setdiff(names(train_hf), outcome)
+
+autoML <- h2o.automl(x = predictors, 
+                     y = outcome,
+                     training_frame    = train_hf,
+                     validation_frame  = valid_hf,
+                     leaderboard_frame = test_hf,
+                     balance_classes   = TRUE,
+                     max_runtime_secs  = 20)
+```
+
+## Plotting ROC curves 
+
+First we'll evaluate the performance of the trained models with ROC curves plotted using ggplot2.
+By default, roc_curves will compare all models in the AutoML leaderboard. By setting `best = TRUE`, only the best model will be shown. Setting `save_png = TRUE` will save the plot as a picture. The function also returns the relevant data, in case you want to customise the plot. Note that the `test_data` argument must be specified.
+
+```{r fig.height=8,fig.width=10}
+library(autoMLviz)
+
+roc_curves(autoML, test_data = test_hf)
+```
+
+## Bar charts comparing area under the curve (AUC) 
+
+```{r fig.height=8,fig.width=8}
+auc_bars(autoML, test_data = test_hf)
+```
+
+## Gains, Lift and Response charts
+
+Two functions producing gains, lift and response charts are included. Whereas `lift4gains()` shows the performance of the best model, `lift4gains2()` can be used to compare all models in the AutoML leaderboard.
+
+To get a reference line in the response plot, you need to pass the proportion of target class observations to the `response_ref`argument.
+
+```{r fig.height=8,fig.width=10}
+lift4gains(autoML, response_ref = .265)
+```
+
+Note that AutoML objects may return different numbers of quantiles for some models causing some of the lines to appear incomplete.
+
+```{r}
+lift4gains2(autoML, response_ref = .265)
+```
+
+
+## Variable importance
+
+With autoMLviz, you can also show variable importannce for the best model. `varImp_plot()` calls the standard `h2o` plotting function, whereas `varImp_ggplot()` creates the plot using ggplot and a theme that is consistent with the above figures. When the best model is an ensemble model, both functions will create two plots. One showing the model importance, and the second showing variable importance for the most important model within the ensemble.
+
+```{r fig.height=8,fig.width=10}
+varImp_plot(autoML)
+```
+
+```{r fig.height=8,fig.width=10}
+varImp_ggplot(autoML)
+```
