@@ -1,10 +1,10 @@
 #' Functions for plotting roc curves
 #'
-#' @param H2OAutoML_object provided by user
-#' @param plot provided by user
-#' @param best provided by user
-#' @param save_png provided by user
-#' @test_data provided by user
+#' @param H2OAutoML_object An object containing multiple models trained in H2O.
+#' @param plot (Optional) Whether to plot the output. Default is TRUE.
+#' @param best (Optional) If set to TRUE, the function returns only the best model.
+#' @param save_png (Optional) Whether to save a .png with ggsave(). Default is FALSE.
+#' @test_data The test data set
 #'
 #' @export
 #' @import dplyr

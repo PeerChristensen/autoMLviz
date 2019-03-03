@@ -1,8 +1,8 @@
 #' Functions for plotting variable importance
 #'
-#' @param H2OAutoML_object provided by user
-#' @param save_pngs provided by user
-#' @param return_data provided by user
+#' @param H2OAutoML_object An object containing multiple models
+#' @param save_pngs (Optional) Whether to save a png files with ggsave(). Default is FALSE.
+#' @param return_data (Optional) Whether to save a data frame. Default is set to FALSE.
 #'
 #' @export
 #' @import purrr

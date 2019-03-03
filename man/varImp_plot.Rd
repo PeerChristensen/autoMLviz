@@ -7,11 +7,11 @@
 varImp_plot(H2OAutoML_object, save_pngs = F, return_data = F)
 }
 \arguments{
-\item{H2OAutoML_object}{provided by user}
+\item{H2OAutoML_object}{An object containing multiple models}
 
-\item{save_pngs}{provided by user}
+\item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.}
 
-\item{return_data}{provided by user}
+\item{return_data}{(Optional) Whether to save a data frame. Default is set to FALSE.}
 }
 \description{
 Functions for plotting variable importance

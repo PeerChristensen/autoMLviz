@@ -1,8 +1,8 @@
 #' Functions for plotting cumulative gains, lift and response charts
 #'
-#' @param H2OAutoML_object provided by user
-#' @param response_ref provided by user
-#' @param save_pngs provided by user
+#' @param H2OAutoML_object An object containing multiple models trained in H2O.
+#' @param response_ref (Optional) You can include a reference line in the response chart by providing the rate of occurence of the target class, i.e. the proportion of the target class in the data.
+#' @param save_pngs (Optional) Whether to save a png files with ggsave(). Default is FALSE.
 #'
 #' @export
 #' @import purrr

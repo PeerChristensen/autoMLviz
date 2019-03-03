@@ -7,11 +7,11 @@
 lift4gains(H2OAutoML_object, response_ref = NULL, save_pngs = F)
 }
 \arguments{
-\item{H2OAutoML_object}{provided by user}
+\item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
 
-\item{response_ref}{provided by user}
+\item{response_ref}{(Optional) You can include a reference line in the response chart by providing the rate of occurence of the target class, i.e. the proportion of the target class in the data.}
 
-\item{save_pngs}{provided by user}
+\item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.}
 }
 \description{
 Functions for plotting cumulative gains, lift and response charts

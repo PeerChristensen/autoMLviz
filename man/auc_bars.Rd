@@ -7,11 +7,9 @@
 auc_bars(H2OAutoML_object, save_png = F, test_data)
 }
 \arguments{
-\item{H2OAutoML_object}{provided by user}
+\item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
 
-\item{save_png}{provided by user}
-
-\item{test_data}{provided by user}
+\item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
 }
 \description{
 Function for plotting AUC bars

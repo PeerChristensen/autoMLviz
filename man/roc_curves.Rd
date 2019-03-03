@@ -4,18 +4,17 @@
 \alias{roc_curves}
 \title{Functions for plotting roc curves}
 \usage{
-roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F, test_data)
+roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F,
+  test_data)
 }
 \arguments{
-\item{H2OAutoML_object}{provided by user}
+\item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
 
-\item{plot}{provided by user}
+\item{plot}{(Optional) Whether to plot the output. Default is TRUE.}
 
-\item{best}{provided by user}
+\item{best}{(Optional) If set to TRUE, the function returns only the best model.}
 
-\item{save_png}{provided by user}
-
-\item{test_data}{provided by user}
+\item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
 }
 \description{
 Functions for plotting roc curves

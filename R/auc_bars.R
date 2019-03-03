@@ -1,7 +1,8 @@
 #' Function for plotting AUC bars
-#' @param H2OAutoML_object provided by user
-#' @param save_png provided by user
-#' @param test_data provided by user
+#'
+#' @param H2OAutoML_object An object containing multiple models trained in H2O.
+#' @param save_png (Optional) Whether to save a .png with ggsave(). Default is FALSE.
+#' @test_data The test data set
 #'
 #' @export
 #' @import purrr
