@@ -11,15 +11,7 @@ lift4gains2(H2OAutoML_object, response_ref = NULL, save_pngs = F)
 
 \item{response_ref}{(Optional) You can include a reference line in the response chart by providing the rate of occurence of the target class, i.e. the proportion of the target class in the data.}
 
-\item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.
-
-#' @param H2OAutoML_object An object containing multiple models trained in H2O.}
-
-\item{plot}{(Optional) Whether to plot the output. Default is TRUE.}
-
-\item{best}{(Optional) If set to TRUE, the function returns only the best model.}
-
-\item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
+\item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.}
 }
 \description{
 Functions for plotting cumulative gains, lift and response charts

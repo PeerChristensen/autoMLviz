@@ -4,7 +4,7 @@
 #' @param plot (Optional) Whether to plot the output. Default is TRUE.
 #' @param best (Optional) If set to TRUE, the function returns only the best model.
 #' @param save_png (Optional) Whether to save a .png with ggsave(). Default is FALSE.
-#' @test_data The test data set
+#' @param test_data The test data set
 #'
 #' @export
 #' @import dplyr

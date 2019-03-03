@@ -15,6 +15,8 @@ roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F,
 \item{best}{(Optional) If set to TRUE, the function returns only the best model.}
 
 \item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
+
+\item{test_data}{The test data set.}
 }
 \description{
 Functions for plotting roc curves

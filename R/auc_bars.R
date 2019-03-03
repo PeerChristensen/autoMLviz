@@ -2,7 +2,7 @@
 #'
 #' @param H2OAutoML_object An object containing multiple models trained in H2O.
 #' @param save_png (Optional) Whether to save a .png with ggsave(). Default is FALSE.
-#' @test_data The test data set
+#' @param test_data The test data set
 #'
 #' @export
 #' @import purrr
