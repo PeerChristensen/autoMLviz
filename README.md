@@ -32,14 +32,14 @@ h2o.init()
     ##  Connection successful!
     ## 
     ## R is connected to the H2O cluster: 
-    ##     H2O cluster uptime:         36 minutes 20 seconds 
+    ##     H2O cluster uptime:         53 minutes 55 seconds 
     ##     H2O cluster timezone:       Europe/Copenhagen 
     ##     H2O data parsing timezone:  UTC 
     ##     H2O cluster version:        3.22.1.1 
-    ##     H2O cluster version age:    2 months and 2 days  
-    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_vfv191 
+    ##     H2O cluster version age:    2 months and 7 days  
+    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_vgi024 
     ##     H2O cluster total nodes:    1 
-    ##     H2O cluster total memory:   3.20 GB 
+    ##     H2O cluster total memory:   3.15 GB 
     ##     H2O cluster total cores:    8 
     ##     H2O cluster allowed cores:  8 
     ##     H2O cluster healthy:        TRUE 
@@ -79,7 +79,7 @@ autoML <- h2o.automl(x = predictors,
                      validation_frame  = valid_hf,
                      leaderboard_frame = test_hf,
                      balance_classes   = TRUE,
-                     max_runtime_secs  = 20)
+                     max_runtime_secs  = 180)
 ```
 
 Plotting ROC curves
@@ -95,20 +95,20 @@ roc_curves(autoML, test_data = test_hf)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-    ## # A tibble: 1,958 x 5
-    ##    model_id      algorithm     tpr   fpr model_rank
-    ##    <chr>         <chr>       <dbl> <dbl>      <int>
-    ##  1 1: GLM_grid_1 glm       0           0          1
-    ##  2 1: GLM_grid_1 glm       0           0          1
-    ##  3 1: GLM_grid_1 glm       0.00357     0          1
-    ##  4 1: GLM_grid_1 glm       0.00714     0          1
-    ##  5 1: GLM_grid_1 glm       0.0107      0          1
-    ##  6 1: GLM_grid_1 glm       0.0179      0          1
-    ##  7 1: GLM_grid_1 glm       0.0214      0          1
-    ##  8 1: GLM_grid_1 glm       0.025       0          1
-    ##  9 1: GLM_grid_1 glm       0.0286      0          1
-    ## 10 1: GLM_grid_1 glm       0.0321      0          1
-    ## # … with 1,948 more rows
+    ## # A tibble: 2,010 x 5
+    ##    model_id      algorithm     tpr     fpr model_rank
+    ##    <chr>         <chr>       <dbl>   <dbl>      <int>
+    ##  1 1: GLM_grid_1 glm       0       0                1
+    ##  2 1: GLM_grid_1 glm       0       0                1
+    ##  3 1: GLM_grid_1 glm       0.00357 0.00129          1
+    ##  4 1: GLM_grid_1 glm       0.00714 0.00129          1
+    ##  5 1: GLM_grid_1 glm       0.0107  0.00129          1
+    ##  6 1: GLM_grid_1 glm       0.0179  0.00129          1
+    ##  7 1: GLM_grid_1 glm       0.0214  0.00129          1
+    ##  8 1: GLM_grid_1 glm       0.025   0.00129          1
+    ##  9 1: GLM_grid_1 glm       0.0286  0.00258          1
+    ## 10 1: GLM_grid_1 glm       0.0429  0.00258          1
+    ## # … with 2,000 more rows
 
 Bar charts comparing area under the curve (AUC)
 -----------------------------------------------
