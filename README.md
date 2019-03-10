@@ -32,14 +32,14 @@ h2o.init()
     ##  Connection successful!
     ## 
     ## R is connected to the H2O cluster: 
-    ##     H2O cluster uptime:         4 hours 12 minutes 
+    ##     H2O cluster uptime:         17 minutes 51 seconds 
     ##     H2O cluster timezone:       Europe/Copenhagen 
     ##     H2O data parsing timezone:  UTC 
     ##     H2O cluster version:        3.22.1.1 
     ##     H2O cluster version age:    2 months and 10 days  
-    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_tow661 
+    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_aau630 
     ##     H2O cluster total nodes:    1 
-    ##     H2O cluster total memory:   3.25 GB 
+    ##     H2O cluster total memory:   3.45 GB 
     ##     H2O cluster total cores:    8 
     ##     H2O cluster allowed cores:  8 
     ##     H2O cluster healthy:        TRUE 
@@ -96,18 +96,18 @@ roc_curves(autoML, test_data = test_hf)
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
     ## # A tibble: 2,010 x 7
-    ##    model_id     algorithm      tpr     fpr model_rank model_id1   model_id2
-    ##    <chr>        <chr>        <dbl>   <dbl>      <int> <chr>       <chr>    
-    ##  1 1: StackedE… stackeden… 0       0                1 1: Stacked… _NULL    
-    ##  2 1: StackedE… stackeden… 0       0                1 1: Stacked… _NULL    
-    ##  3 1: StackedE… stackeden… 0.00357 0                1 1: Stacked… _NULL    
-    ##  4 1: StackedE… stackeden… 0.00714 0                1 1: Stacked… _NULL    
-    ##  5 1: StackedE… stackeden… 0.0107  0                1 1: Stacked… _NULL    
-    ##  6 1: StackedE… stackeden… 0.0143  0                1 1: Stacked… _NULL    
-    ##  7 1: StackedE… stackeden… 0.0214  0                1 1: Stacked… _NULL    
-    ##  8 1: StackedE… stackeden… 0.025   0.00129          1 1: Stacked… _NULL    
-    ##  9 1: StackedE… stackeden… 0.0286  0.00129          1 1: Stacked… _NULL    
-    ## 10 1: StackedE… stackeden… 0.0321  0.00129          1 1: Stacked… _NULL    
+    ##    model_id      algorithm     tpr     fpr model_rank model_id1   model_id2
+    ##    <chr>         <chr>       <dbl>   <dbl>      <int> <chr>       <chr>    
+    ##  1 1: DeepLearn… deeplear… 0       0                1 1: DeepLea… _model_3 
+    ##  2 1: DeepLearn… deeplear… 0       0                1 1: DeepLea… _model_3 
+    ##  3 1: DeepLearn… deeplear… 0.00357 0                1 1: DeepLea… _model_3 
+    ##  4 1: DeepLearn… deeplear… 0.00714 0                1 1: DeepLea… _model_3 
+    ##  5 1: DeepLearn… deeplear… 0.0107  0                1 1: DeepLea… _model_3 
+    ##  6 1: DeepLearn… deeplear… 0.0179  0                1 1: DeepLea… _model_3 
+    ##  7 1: DeepLearn… deeplear… 0.0214  0                1 1: DeepLea… _model_3 
+    ##  8 1: DeepLearn… deeplear… 0.025   0                1 1: DeepLea… _model_3 
+    ##  9 1: DeepLearn… deeplear… 0.0286  0                1 1: DeepLea… _model_3 
+    ## 10 1: DeepLearn… deeplear… 0.0321  0.00129          1 1: DeepLea… _model_3 
     ## # … with 2,000 more rows
 
 Bar charts comparing area under the curve (AUC)
@@ -149,14 +149,10 @@ With autoMLviz, you can also plot variable importannce for the best model. `varI
 varImp_plot(autoML)
 ```
 
-    ## [1] "Ensemble model: Plotting Model importance and Variable importances of model with highest importance"
-
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 ``` r
 varImp_ggplot(autoML)
 ```
 
-    ## [1] "Ensemble model: Plotting Model importance and Variable importances of model with highest importance"
-
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)![](README_files/figure-markdown_github/unnamed-chunk-8-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
