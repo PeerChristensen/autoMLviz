@@ -3,6 +3,7 @@
 #' @param H2OAutoML_object An object containing multiple models trained in H2O.
 #' @param save_png (Optional) Whether to save a .png with ggsave(). Default is FALSE.
 #' @param test_data The test data set
+#' @param n_models (Optional) The number of trained models to include
 #'
 #' @export
 #' @import purrr
@@ -11,9 +12,9 @@
 #' @import h2o
 #'
 
-auc_bars <- function(H2OAutoML_object, save_png = F, test_data) {
+auc_bars <- function(H2OAutoML_object, save_png = F, test_data, n_models = 5) {
 
-  models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id)) %>%
+  models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id))[1:n_models] %>%
     map(h2o.getModel)
 
   df <- tibble()
@@ -32,12 +33,20 @@ auc_bars <- function(H2OAutoML_object, save_png = F, test_data) {
     df <- rbind(df,d)
   }
 
-  df$model_id <- str_split(df$model_id, "_AutoML") %>%
+  df$model_id1 <- str_split(df$model_id, "_AutoML") %>%
     map_chr(1) %>%
     paste0(df$model_rank,": ",.)
 
+  df$model_id2 <- str_split(df$model_id,"(?<=_)(?=[_model])") %>%
+    map(2) %>%
+    paste("_",.) %>%
+    str_remove(" ")
+
+  df$model_id <- paste0(df$model_id1,df$model_id2)
+  df$model_id <- str_remove(df$model_id,"_NULL")
+
   p <- df %>%
-    ggplot(aes(model_id, auc, fill = model_id)) +
+    ggplot(aes(model_id, auc, fill = reorder(model_id,model_rank))) +
     geom_col() +
     xlab('Models') +
     ylab('AUC') +

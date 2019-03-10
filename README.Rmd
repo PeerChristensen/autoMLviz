@@ -59,13 +59,13 @@ autoML <- h2o.automl(x = predictors,
                      validation_frame  = valid_hf,
                      leaderboard_frame = test_hf,
                      balance_classes   = TRUE,
-                     max_runtime_secs  = 180)
+                     max_runtime_secs = 1000)
 ```
 
 ## Plotting ROC curves 
 
 First we'll evaluate the performance of the trained models with ROC curves plotted using ggplot2.
-By default, roc_curves will compare all models in the AutoML leaderboard. By setting `best = TRUE`, only the best model will be shown. Setting `save_png = TRUE` will save the plot as a picture. The function also returns the relevant data, in case you want to customise the plot. Note that the `test_data` argument must be specified.
+By default, roc_curves will compare all models in the AutoML leaderboard. By setting `best = TRUE`, only the best model will be shown. Setting `save_png = TRUE` will save the plot as a picture. The function also returns the relevant data, in case you want to customise the plot. Note that the `test_data` argument must be specified. Furthermore, you can control how many models you would like to include in your plots by setting the `n_models`argument. The default number of models to return is five.
 
 ```{r fig.height=8,fig.width=10}
 library(autoMLviz)
@@ -98,7 +98,7 @@ lift4gains2(autoML, response_ref = .265)
 
 ## Variable importance
 
-With autoMLviz, you can also show variable importannce for the best model. `varImp_plot()` calls the standard `h2o` plotting function, whereas `varImp_ggplot()` creates the plot using ggplot and a theme that is consistent with the above figures. When the best model is an ensemble model, both functions will create two plots. One showing the model importance, and the second showing variable importance for the most important model within the ensemble.
+With autoMLviz, you can also plot variable importannce for the best model. `varImp_plot()` calls the standard `h2o` plotting function, whereas `varImp_ggplot()` creates the plot using ggplot and a theme that is consistent with the above figures. If the best model is an ensemble model, both functions will create two plots. One showing the model importance, and the second showing variable importance for the most important model within the ensemble.
 
 ```{r fig.height=8,fig.width=10}
 varImp_plot(autoML)
