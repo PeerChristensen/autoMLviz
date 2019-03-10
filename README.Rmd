@@ -85,7 +85,7 @@ Two functions producing gains, lift and response charts are included. Whereas `l
 
 To get a reference line in the response plot, you need to pass the proportion of target class observations to the `response_ref`argument.
 
-```{r fig.height=8,fig.width=10}
+```{r fig.height=10,fig.width=12}
 lift4gains(autoML, response_ref = .265)
 ```
 

@@ -75,6 +75,7 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
 
     p2 <- varImp %>%
       drop_na() %>%
+      top_n(25,coefficients) %>%
       ggplot(aes(x=reorder(names,coefficients),coefficients, fill = factor(sign))) +
       geom_col() +
       coord_flip() +
@@ -90,6 +91,7 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
 
     p2 <- varImp %>%
       drop_na() %>%
+      top_n(25,scaled_importance) %>%
       ggplot(aes(x=reorder(variable,scaled_importance ),scaled_importance, fill = factor(scaled_importance))) + #fill = factor(sign)
       geom_col() +
       coord_flip() +
