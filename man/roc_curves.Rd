@@ -4,8 +4,7 @@
 \alias{roc_curves}
 \title{Functions for plotting roc curves}
 \usage{
-roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F,
-  test_data)
+roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F,test_data,n_models = 5)
 }
 \arguments{
 \item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
@@ -17,6 +16,8 @@ roc_curves(H2OAutoML_object, plot = T, best = F, save_png = F,
 \item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
 
 \item{test_data}{The test data set.}
+
+\item{n_models}{(Optional) The number of trained models to include.}
 }
 \description{
 Functions for plotting roc curves

@@ -4,7 +4,7 @@
 \alias{auc_bars}
 \title{Function for plotting AUC bars}
 \usage{
-auc_bars(H2OAutoML_object, save_png = F, test_data)
+auc_bars(H2OAutoML_object, save_png = F, test_data, n_models = 5)
 }
 \arguments{
 \item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
@@ -12,6 +12,8 @@ auc_bars(H2OAutoML_object, save_png = F, test_data)
 \item{save_png}{(Optional) Whether to save a .png with ggsave(). Default is FALSE.}
 
 \item{test_data}{The test data set.}
+
+\item{n_models}{(Optional) The number of trained models to include}
 }
 \description{
 Function for plotting AUC bars

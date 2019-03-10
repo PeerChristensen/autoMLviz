@@ -27,18 +27,29 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
     # plot model importance using ggplot2
     metaLearner_df <- metaLearner@model$coefficients_table[-1,] %>%
       arrange(desc(standardized_coefficients)) %>%
-      mutate(order = row_number())
+      mutate(order = row_number()) %>%
+      filter(coefficients > 0.000)
 
-    metaLearner_df$names <- str_split(metaLearner_df$names, "_AutoML") %>%
-      map_chr(1)
+    metaLearner_df$names1 <- str_split(metaLearner_df$names, "_AutoML") %>%
+      map_chr(1) %>%
+      paste0(metaLearner_df$order,": ",.)
 
-    p1 <-metaLearner_df %>%
-      ggplot(aes(x=reorder(names,standardized_coefficients),standardized_coefficients, fill = factor(order))) +
+    metaLearner_df$names2 <- str_split(metaLearner_df$names,"(?<=_)(?=[_model])") %>%
+      map(2) %>%
+      paste("_",.) %>%
+      str_remove(" ")
+
+    metaLearner_df$names <- paste0(metaLearner_df$names1,metaLearner_df$names2)
+    metaLearner_df$names <- str_remove(metaLearner_df$names,"_NULL")
+
+    p1 <- metaLearner_df %>%
+      ggplot(aes(x=reorder(names,rev(order)),standardized_coefficients, fill = factor(order))) +
       geom_col() +
       coord_flip() +
       scale_fill_viridis_d(guide=F) +
       labs(x= "Models", y = "Standard. coefficients") +
       ggtitle("Model importance in ensemble") +
+      theme_light() +
       theme(plot.title = element_text(size = 16),
             axis.title = element_text(size = 12),
             axis.text  = element_text(size = 12))
@@ -76,9 +87,10 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
             axis.text  = element_text(size = 12))
 
   } else {
+
     p2 <- varImp %>%
       drop_na() %>%
-      ggplot(aes(x=reorder(variable,scaled_importance ),scaled_importance, fill = scaled_importance)) + #fill = factor(sign)
+      ggplot(aes(x=reorder(variable,scaled_importance ),scaled_importance, fill = factor(scaled_importance))) + #fill = factor(sign)
       geom_col() +
       coord_flip() +
       scale_fill_viridis_d(guide = FALSE) +
