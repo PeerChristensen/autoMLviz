@@ -4,7 +4,7 @@
 \alias{varImp_ggplot}
 \title{Functions for plotting variable importance}
 \usage{
-varImp_ggplot(H2OAutoML_object, save_pngs = F, return_data = F)
+varImp_ggplot(H2OAutoML_object, save_pngs = F, return_data = F, n_vars = 25)
 }
 \arguments{
 \item{H2OAutoML_object}{An object containing multiple models}
@@ -12,6 +12,9 @@ varImp_ggplot(H2OAutoML_object, save_pngs = F, return_data = F)
 \item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.}
 
 \item{return_data}{(Optional) Whether to save a data frame. Default is set to FALSE.}
+
+\item{n_vars}{(Optional) The number of variables to include. Default is 25.}
+
 }
 \description{
 Functions for plotting variable importance

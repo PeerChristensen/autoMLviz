@@ -3,6 +3,7 @@
 #' @param H2OAutoML_object An object containing multiple models
 #' @param save_pngs (Optional) Whether to save a png files with ggsave(). Default is FALSE.
 #' @param return_data (Optional) Whether to save a data frame. Default is set to FALSE.
+#' @param n_vars (Optional) The number of variables to include. Default is 25.
 #'
 #' @export
 #' @import purrr
@@ -15,7 +16,7 @@
 
 # variable importance with ggplot
 
-varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
+varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F, n_vars = 25) {
 
   model <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id)) %>%
     map(h2o.getModel) %>% .[[1]]
@@ -52,7 +53,9 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
       theme_light() +
       theme(plot.title = element_text(size = 16),
             axis.title = element_text(size = 12),
-            axis.text  = element_text(size = 12))
+            axis.text  = element_text(size = 12),
+            panel.grid.major.y = element_blank(),
+            panel.grid.minor.y = element_blank())
 
     print(p1)
 
@@ -75,7 +78,7 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
 
     p2 <- varImp %>%
       drop_na() %>%
-      top_n(25,coefficients) %>%
+      top_n(n_vars,coefficients) %>%
       ggplot(aes(x=reorder(names,coefficients),coefficients, fill = factor(sign))) +
       geom_col() +
       coord_flip() +
@@ -85,13 +88,15 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
       theme_light() +
       theme(plot.title = element_text(size = 16),
             axis.title = element_text(size = 12),
-            axis.text  = element_text(size = 12))
+            axis.text  = element_text(size = 12),
+            panel.grid.major.y = element_blank(),
+            panel.grid.minor.y = element_blank())
 
   } else {
 
     p2 <- varImp %>%
       drop_na() %>%
-      top_n(25,scaled_importance) %>%
+      top_n(n_vars,scaled_importance) %>%
       ggplot(aes(x=reorder(variable,scaled_importance ),scaled_importance, fill = factor(scaled_importance))) + #fill = factor(sign)
       geom_col() +
       coord_flip() +
@@ -101,7 +106,9 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F) {
       theme_light() +
       theme(plot.title = element_text(size = 16),
             axis.title = element_text(size = 12),
-            axis.text  = element_text(size = 12))
+            axis.text  = element_text(size = 12),
+            panel.grid.major.y = element_blank(),
+            panel.grid.minor.y = element_blank())
   }
   print(p2)
 

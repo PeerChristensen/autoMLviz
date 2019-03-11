@@ -57,7 +57,9 @@ auc_bars <- function(H2OAutoML_object, save_png = F, test_data, n_models = 5) {
     theme(plot.title = element_text(size = 16),
           axis.title = element_text(size = 12),
           axis.text.x  = element_text(size = 12,angle = 45, hjust = 1),
-          axis.text.y  = element_text(size = 12)) +
+          axis.text.y  = element_text(size = 12),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank()) +
     ylim(c(0,1))
 
   print(p)

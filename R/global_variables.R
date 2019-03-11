@@ -1,4 +1,4 @@
 
 globalVariables(c(".","cumulative_data_fraction","cumulative_capture_rate","cumulative_lift","cumulative_response_rate",
                   "model_id","standardized_coefficients","coefficients","metalearner","reorder","scaled_importance",
-                  "test_data","plot","best", "save_png","variable","add_column","str_split","drop_na","n_models","model_rank"))
+                  "test_data","plot","best","n_vars", "save_png","variable","add_column","str_split","drop_na","n_models","model_rank"))
