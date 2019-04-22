@@ -45,7 +45,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, n_
     geom_segment(aes(x=0,y=0,xend = 1, yend = 1),size = 1,linetype = 2,col='grey')+
     scale_colour_viridis_d("Model") +
     ggtitle("Gains chart",
-            subtitle = "When we apply the model and select x % of customers,\nwhat % of the target class observations can we expect to hit?") +
+            subtitle = "When we apply the model and select x % of observations,\nwhat % of the target class observations can we expect to hit?") +
     labs(x = "Data fraction",
          y = "Cumulative gains") +
     theme_light() +
@@ -65,7 +65,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, n_
     geom_segment(aes(x=0,y=1,xend = 1, yend = 1),size = 1,linetype = 2,col='grey')+
     scale_colour_viridis_d("Model") +
     ggtitle("Lift chart",
-            subtitle = "When we apply the model and select x % of customers,\nhow many times better is that than using no model?") +
+            subtitle = "When we apply the model and select x % of observations,\nhow many times better is that than using no model?") +
     labs(x = "Data fraction",
          y = "Cumulative lift") +
     theme_light() +
@@ -85,7 +85,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, n_
     ylim(c(0,1)) +
     scale_colour_viridis_d("Model",alpha=.6) +
     ggtitle("Response chart",
-            subtitle = "When we apply the model and select x % of customers, \nwhat is the expected % of target class observations in the selection?") +
+            subtitle = "When we apply the model and select x % of observations, \nwhat is the expected % of target class observations in the selection?") +
     labs(x = "Data fraction",
          y = "Cumulative response") +
     theme_light() +
