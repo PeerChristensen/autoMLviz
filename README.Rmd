@@ -59,7 +59,7 @@ autoML <- h2o.automl(x = predictors,
                      validation_frame  = valid_hf,
                      leaderboard_frame = test_hf,
                      balance_classes   = TRUE,
-                     max_runtime_secs = 1000)
+                     max_runtime_secs  = 100)
 ```
 
 ## Plotting ROC curves 
@@ -90,6 +90,8 @@ lift4gains(autoML, response_ref = .265)
 ```
 
 Note that AutoML objects may return different numbers of quantiles for some models causing some of the lines to appear incomplete.
+
+As gains, lift and response charts can sometimes be difficult to understand, the `explain` argument can be set to `TRUE`, which adds subtitles to each plot explaining how they should be interpreted.
 
 ```{r}
 lift4gains2(autoML, response_ref = .265)

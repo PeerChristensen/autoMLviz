@@ -3,6 +3,7 @@
 #' @param H2OAutoML_object An object containing multiple models trained in H2O.
 #' @param response_ref (Optional) You can include a reference line in the response chart by providing the rate of occurence of the target class, i.e. the proportion of the target class in the data.
 #' @param save_pngs (Optional) Whether to save a png files with ggsave(). Default is FALSE.
+#' @param explain (Optional) Whether to include a subtitle explaining the plot.
 #'
 #' @export
 #' @import purrr
@@ -12,7 +13,7 @@
 #'
 
 # single model (best model)
-lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
+lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, explain = F) {
 
   model <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id))[1]
 
@@ -23,14 +24,21 @@ lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
     ggplot(aes(x=cumulative_data_fraction,y=cumulative_capture_rate)) +
     geom_line(size = .8) +
     geom_point(size = 1) +
-    geom_segment(aes(x=0,y=0,xend = 1, yend = 1),size = 1,linetype = 2,col='grey')+
-    ggtitle("Gains chart",
-            subtitle = "When we apply the model and select x % of observations,\nwhat % of the target class observations can we expect to hit?") +
+    geom_segment(aes(x=0,y=0,xend = 1, yend = 1),size = 1,linetype = 2,col='grey') +
     labs(x = "Data fraction",
          y = "Cumulative gains") +
     theme_light() +
     theme(plot.title = element_text(size = 16),
           plot.subtitle = element_text(size = 12, face = "italic",vjust=-1))
+
+  if (explain == T) {
+    p1 <- p1 +
+      ggtitle("Gains chart",
+                        subtitle = "When we apply the model and select x % of observations,\nwhat % of the target class observations can we expect to hit?")
+  } else {
+    p1 <- p1 +
+      ggtitle("Gains chart")
+  }
 
   print(p1)
   if (save_pngs == T) {
@@ -42,14 +50,21 @@ lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
     ggplot(aes(x=cumulative_data_fraction,y=cumulative_lift)) +
     geom_line(size = .8) +
     geom_point(size = 1) +
-    geom_segment(aes(x=0,y=1,xend = 1, yend = 1),size = 1,linetype = 2,col='grey')+
-    ggtitle("Lift chart",
-            subtitle = "When we apply the model and select x % of observations,\nhow many times better is that than using no model?") +
+    geom_segment(aes(x=0,y=1,xend = 1, yend = 1),size = 1,linetype = 2,col='grey') +
     labs(x = "Data fraction",
          y = "Cumulative lift") +
     theme_light() +
     theme(plot.title = element_text(size = 16),
           plot.subtitle = element_text(size = 14, face = "italic",vjust=-1))
+
+  if (explain == T) {
+    p2 <- p2 +
+      ggtitle("Lift chart",
+              subtitle = "When we apply the model and select x % of observations,\nhow many times better is that than using no model?")
+  } else {
+    p1 <- p1 +
+      ggtitle("Lift chart")
+  }
 
   print(p2)
   if (save_pngs == T) {
@@ -74,6 +89,14 @@ lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F) {
     p3 <- p3 + geom_segment(aes(x=0,y = response_ref,xend = 1, yend = response_ref),size = 1,linetype = 2,col='grey')
   }
 
+  if (explain == T) {
+    p2 <- p2 +
+      ggtitle("Response chart",
+              subtitle = "When we apply the model and select x % of observations, \nwhat is the expected % of target class observations in the selection?")
+} else {
+    p3 <- p3 +
+      ggtitle("Response chart")
+  }
   print(p3)
   if (save_pngs == T) {
     ggsave("response.png")

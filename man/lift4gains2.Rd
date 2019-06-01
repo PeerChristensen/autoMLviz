@@ -4,7 +4,8 @@
 \alias{lift4gains2}
 \title{Functions for plotting cumulative gains, lift and response charts}
 \usage{
-lift4gains2(H2OAutoML_object, response_ref = NULL, save_pngs = F, n_models = 5)
+lift4gains2(H2OAutoML_object, response_ref = NULL, save_pngs = F,
+n_models = 5,explain = F)
 }
 \arguments{
 \item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
@@ -15,6 +16,7 @@ lift4gains2(H2OAutoML_object, response_ref = NULL, save_pngs = F, n_models = 5)
 
 \item{n_models}{(Optional) The number of trained models to include.}
 
+\item{explain}{(Optional) Whether to include a subtitle explaining the plots.}
 }
 \description{
 Functions for plotting cumulative gains, lift and response charts

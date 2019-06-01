@@ -4,7 +4,8 @@
 \alias{lift4gains}
 \title{Functions for plotting cumulative gains, lift and response charts}
 \usage{
-lift4gains(H2OAutoML_object, response_ref = NULL, save_pngs = F)
+lift4gains(H2OAutoML_object, response_ref = NULL,
+save_pngs = F, explain = F)
 }
 \arguments{
 \item{H2OAutoML_object}{An object containing multiple models trained in H2O.}
@@ -12,7 +13,10 @@ lift4gains(H2OAutoML_object, response_ref = NULL, save_pngs = F)
 \item{response_ref}{(Optional) You can include a reference line in the response chart by providing the rate of occurence of the target class, i.e. the proportion of the target class in the data.}
 
 \item{save_pngs}{(Optional) Whether to save a png files with ggsave(). Default is FALSE.}
+
+\item{explain}{(Optional) Whether to include a subtitle explaining the plots.}
 }
+
 \description{
 Functions for plotting cumulative gains, lift and response charts
 }
