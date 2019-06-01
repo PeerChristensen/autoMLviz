@@ -94,7 +94,7 @@ Note that AutoML objects may return different numbers of quantiles for some mode
 As gains, lift and response charts can sometimes be difficult to understand, the `explain` argument can be set to `TRUE`, which adds subtitles to each plot explaining how they should be interpreted.
 
 ```{r}
-lift4gains2(autoML, response_ref = .265)
+lift4gains2(autoML, response_ref = .265, explain = TRUE)
 ```
 
 

@@ -1,13 +1,13 @@
 autoMLviz: Functions for plotting H2O AutoML model performance
 ================
 
-What it does
-------------
+## What it does
 
-The package currently contains functions for plotting ROC curves, AUC bar charts, as well as gains, lift and response charts for communicating classification model performance.
+The package currently contains functions for plotting ROC curves, AUC
+bar charts, as well as gains, lift and response charts for communicating
+classification model performance.
 
-Installation
-------------
+## Installation
 
 ``` r
 install.packages("devtools")
@@ -16,10 +16,11 @@ library(devtools)
 install_github("PeerCHristensen/autoMLviz")
 ```
 
-Automated machine learning with H2O
------------------------------------
+## Automated machine learning with H2O
 
-We'll load some preprocessed sample data and create train, validation and test sets with the caret package before creating an H2OAutoML object, which will contain the performance metrics from multiple models.
+We’ll load some preprocessed sample data and create train, validation
+and test sets with the caret package before creating an H2OAutoML
+object, which will contain the performance metrics from multiple models.
 
 ``` r
 library(tidyverse)
@@ -29,25 +30,17 @@ library(h2o)
 h2o.init()
 ```
 
-    ## 
-    ## H2O is not running yet, starting it now...
-    ## 
-    ## Note:  In case of errors look at the following log files:
-    ##     /var/folders/j7/nyngp1s56r95glq3yw7g44bm0000gn/T//RtmpoxCDiz/h2o_peerchristensen_started_from_r.out
-    ##     /var/folders/j7/nyngp1s56r95glq3yw7g44bm0000gn/T//RtmpoxCDiz/h2o_peerchristensen_started_from_r.err
-    ## 
-    ## 
-    ## Starting H2O JVM and connecting: .. Connection successful!
+    ##  Connection successful!
     ## 
     ## R is connected to the H2O cluster: 
-    ##     H2O cluster uptime:         2 seconds 221 milliseconds 
+    ##     H2O cluster uptime:         3 minutes 12 seconds 
     ##     H2O cluster timezone:       Europe/Copenhagen 
     ##     H2O data parsing timezone:  UTC 
     ##     H2O cluster version:        3.22.1.1 
-    ##     H2O cluster version age:    3 months and 25 days !!! 
-    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_gav544 
+    ##     H2O cluster version age:    5 months and 4 days !!! 
+    ##     H2O cluster name:           H2O_started_from_R_peerchristensen_flk366 
     ##     H2O cluster total nodes:    1 
-    ##     H2O cluster total memory:   3.56 GB 
+    ##     H2O cluster total memory:   3.54 GB 
     ##     H2O cluster total cores:    8 
     ##     H2O cluster allowed cores:  8 
     ##     H2O cluster healthy:        TRUE 
@@ -56,7 +49,7 @@ h2o.init()
     ##     H2O Connection proxy:       NA 
     ##     H2O Internal Security:      FALSE 
     ##     H2O API Extensions:         XGBoost, Algos, AutoML, Core V3, Core V4 
-    ##     R Version:                  R version 3.5.0 (2018-04-23)
+    ##     R Version:                  R version 3.6.0 (2019-04-26)
 
 ``` r
 h2o.no_progress()
@@ -87,13 +80,20 @@ autoML <- h2o.automl(x = predictors,
                      validation_frame  = valid_hf,
                      leaderboard_frame = test_hf,
                      balance_classes   = TRUE,
-                     max_runtime_secs = 1000)
+                     max_runtime_secs  = 100)
 ```
 
-Plotting ROC curves
--------------------
+## Plotting ROC curves
 
-First we'll evaluate the performance of the trained models with ROC curves plotted using ggplot2. By default, roc\_curves will compare all models in the AutoML leaderboard. By setting `best = TRUE`, only the best model will be shown. Setting `save_png = TRUE` will save the plot as a picture. The function also returns the relevant data, in case you want to customise the plot. Note that the `test_data` argument must be specified. Furthermore, you can control how many models you would like to include in your plots by setting the `n_models`argument. The default number of models to return is five.
+First we’ll evaluate the performance of the trained models with ROC
+curves plotted using ggplot2. By default, roc\_curves will compare all
+models in the AutoML leaderboard. By setting `best = TRUE`, only the
+best model will be shown. Setting `save_png = TRUE` will save the plot
+as a picture. The function also returns the relevant data, in case you
+want to customise the plot. Note that the `test_data` argument must be
+specified. Furthermore, you can control how many models you would like
+to include in your plots by setting the `n_models`argument. The default
+number of models to return is five.
 
 ``` r
 library(autoMLviz)
@@ -101,66 +101,85 @@ library(autoMLviz)
 roc_curves(autoML, test_data = test_hf)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-    ## # A tibble: 2,010 x 7
-    ##    model_id        algorithm     tpr   fpr model_rank model_id1   model_id2
-    ##    <chr>           <chr>       <dbl> <dbl>      <int> <chr>       <chr>    
-    ##  1 1: GBM_grid_1_… gbm       0           0          1 1: GBM_gri… _model_26
-    ##  2 1: GBM_grid_1_… gbm       0           0          1 1: GBM_gri… _model_26
-    ##  3 1: GBM_grid_1_… gbm       0.00357     0          1 1: GBM_gri… _model_26
-    ##  4 1: GBM_grid_1_… gbm       0.00714     0          1 1: GBM_gri… _model_26
-    ##  5 1: GBM_grid_1_… gbm       0.0214      0          1 1: GBM_gri… _model_26
-    ##  6 1: GBM_grid_1_… gbm       0.025       0          1 1: GBM_gri… _model_26
-    ##  7 1: GBM_grid_1_… gbm       0.0286      0          1 1: GBM_gri… _model_26
-    ##  8 1: GBM_grid_1_… gbm       0.0321      0          1 1: GBM_gri… _model_26
-    ##  9 1: GBM_grid_1_… gbm       0.0393      0          1 1: GBM_gri… _model_26
-    ## 10 1: GBM_grid_1_… gbm       0.0464      0          1 1: GBM_gri… _model_26
-    ## # … with 2,000 more rows
+    ## # A tibble: 1,960 x 7
+    ##    model_id     algorithm      tpr     fpr model_rank model_id1   model_id2
+    ##    <chr>        <chr>        <dbl>   <dbl>      <int> <chr>       <chr>    
+    ##  1 1: StackedE… stackeden… 0       0                1 1: Stacked… _NULL    
+    ##  2 1: StackedE… stackeden… 0       0                1 1: Stacked… _NULL    
+    ##  3 1: StackedE… stackeden… 0.00357 0                1 1: Stacked… _NULL    
+    ##  4 1: StackedE… stackeden… 0.00357 0.00129          1 1: Stacked… _NULL    
+    ##  5 1: StackedE… stackeden… 0.0107  0.00129          1 1: Stacked… _NULL    
+    ##  6 1: StackedE… stackeden… 0.0107  0.00388          1 1: Stacked… _NULL    
+    ##  7 1: StackedE… stackeden… 0.0143  0.00388          1 1: Stacked… _NULL    
+    ##  8 1: StackedE… stackeden… 0.0214  0.00388          1 1: Stacked… _NULL    
+    ##  9 1: StackedE… stackeden… 0.0321  0.00388          1 1: Stacked… _NULL    
+    ## 10 1: StackedE… stackeden… 0.0357  0.00646          1 1: Stacked… _NULL    
+    ## # … with 1,950 more rows
 
-Bar charts comparing area under the curve (AUC)
------------------------------------------------
+## Bar charts comparing area under the curve (AUC)
 
 ``` r
 auc_bars(autoML, test_data = test_hf)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-Gains, Lift and Response charts
--------------------------------
+## Gains, Lift and Response charts
 
-Two functions producing gains, lift and response charts are included. Whereas `lift4gains()` shows the performance of the best model, `lift4gains2()` can be used to compare all models in the AutoML leaderboard.
+Two functions producing gains, lift and response charts are included.
+Whereas `lift4gains()` shows the performance of the best model,
+`lift4gains2()` can be used to compare all models in the AutoML
+leaderboard.
 
-To get a reference line in the response plot, you need to pass the proportion of target class observations to the `response_ref`argument.
+To get a reference line in the response plot, you need to pass the
+proportion of target class observations to the
+`response_ref`argument.
 
 ``` r
 lift4gains(autoML, response_ref = .265)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)![](README_files/figure-markdown_github/unnamed-chunk-5-2.png)![](README_files/figure-markdown_github/unnamed-chunk-5-3.png)
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
 
-Note that AutoML objects may return different numbers of quantiles for some models causing some of the lines to appear incomplete.
+Note that AutoML objects may return different numbers of quantiles for
+some models causing some of the lines to appear incomplete.
+
+As gains, lift and response charts can sometimes be difficult to
+understand, the `explain` argument can be set to `TRUE`, which adds
+subtitles to each plot explaining how they should be
+interpreted.
 
 ``` r
-lift4gains2(autoML, response_ref = .265)
+lift4gains2(autoML, response_ref = .265, explain = TRUE)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)![](README_files/figure-markdown_github/unnamed-chunk-6-2.png)![](README_files/figure-markdown_github/unnamed-chunk-6-3.png)
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
 
-Variable importance
--------------------
+## Variable importance
 
-With autoMLviz, you can also plot variable importannce for the best model. `varImp_plot()` calls the standard `h2o` plotting function, whereas `varImp_ggplot()` creates the plot using ggplot and a theme that is consistent with the above figures. If the best model is an ensemble model, both functions will create two plots. One showing the model importance, and the second showing variable importance for the most important model within the ensemble.
+With autoMLviz, you can also plot variable importannce for the best
+model. `varImp_plot()` calls the standard `h2o` plotting function,
+whereas `varImp_ggplot()` creates the plot using ggplot and a theme that
+is consistent with the above figures. If the best model is an ensemble
+model, both functions will create two plots. One showing the model
+importance, and the second showing variable importance for the most
+important model within the
+    ensemble.
 
 ``` r
 varImp_plot(autoML)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+    ## [1] "Ensemble model: Plotting Model importance and Variable importances of model with highest importance"
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 varImp_ggplot(autoML)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
+    ## [1] "Ensemble model: Plotting Model importance and Variable importances of model with highest importance"
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->

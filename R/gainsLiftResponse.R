@@ -62,7 +62,7 @@ lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, exp
       ggtitle("Lift chart",
               subtitle = "When we apply the model and select x % of observations,\nhow many times better is that than using no model?")
   } else {
-    p1 <- p1 +
+    p2 <- p2 +
       ggtitle("Lift chart")
   }
 
@@ -90,7 +90,7 @@ lift4gains <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F, exp
   }
 
   if (explain == T) {
-    p2 <- p2 +
+    p3 <- p3 +
       ggtitle("Response chart",
               subtitle = "When we apply the model and select x % of observations, \nwhat is the expected % of target class observations in the selection?")
 } else {
