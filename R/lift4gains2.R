@@ -19,6 +19,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
                         n_models = 5, explain = F) {
 
   models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id))
+  model <- models[1:n_models]
 
   df <- models %>% map(h2o.getModel) %>% map(h2o.gainsLift) %>% reduce(rbind) %>% as_tibble()
 
@@ -72,8 +73,6 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
     geom_point(size = 1) +
     geom_segment(aes(x=0,y=1,xend = 1, yend = 1),size = 1,linetype = 2,col='grey')+
     scale_colour_viridis_d("Model") +
-    ggtitle("Lift chart",
-            subtitle = "When we apply the model and select x % of customers,\nhow many times better is that than using no model?") +
     labs(x = "Data fraction",
          y = "Cumulative lift") +
     theme_light() +
