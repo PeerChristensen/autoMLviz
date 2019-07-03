@@ -22,7 +22,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
 
   df <- models %>% map(h2o.getModel) %>% map(h2o.gainsLift) %>% reduce(rbind) %>% as_tibble()
 
-  lengths <- models %>% map(h2o.getModel) %>% map(h2o.gainsLift) %>% map(nrow)
+  lengths <- models %>% map(h2o.getModel) %>% map(h2o.gainsLift) %>% map(dim) %>% map(1) %>% unlist()
 
   df$model_id <- factor(rep(models,lengths))
   df$model_rank <- rep(1:length(lengths),lengths)
