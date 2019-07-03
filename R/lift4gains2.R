@@ -18,8 +18,7 @@
 lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
                         n_models = 5, explain = F) {
 
-  models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id)[1:n_models])
-  model <- models
+  models <- as.vector(as.character(H2OAutoML_object@leaderboard$model_id))[1:n_models]
 
   df <- models %>% map(h2o.getModel) %>% map(h2o.gainsLift) %>% reduce(rbind) %>% as_tibble()
 
