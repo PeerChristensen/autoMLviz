@@ -59,7 +59,7 @@ autoML <- h2o.automl(x = predictors,
                      validation_frame  = valid_hf,
                      leaderboard_frame = test_hf,
                      balance_classes   = TRUE,
-                     max_runtime_secs  = 100)
+                     max_runtime_secs  = 1000)
 ```
 
 ## Plotting ROC curves 

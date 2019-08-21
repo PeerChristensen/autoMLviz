@@ -47,7 +47,7 @@ auc_bars <- function(H2OAutoML_object, save_png = F, test_data, n_models = 5) {
 
   p <- df %>%
     ggplot(aes(model_id, auc, fill = reorder(model_id,model_rank))) +
-    geom_col() +
+    geom_col(width = .8) +
     xlab('Models') +
     ylab('AUC') +
     scale_fill_viridis_d(guide=F) +
