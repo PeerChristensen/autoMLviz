@@ -79,10 +79,10 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F, n_va
     p2 <- varImp %>%
       drop_na() %>%
       top_n(n_vars,variable) %>%
-      ggplot(aes(x=reorder(names,coefficients),coefficients, fill = factor(sign))) +
+      ggplot(aes(x=reorder(variable,relative_importance),relative_importance,fill=relative_importance)) +
       geom_col() +
       coord_flip() +
-      scale_fill_viridis_d("Sign") +
+      scale_fill_viridis_c("Relative importance") +
       labs(x= "Variables", y = "Coefficients") +
       ggtitle(paste("Variable importance for", model@algorithm, "model")) +
       theme_light() +
