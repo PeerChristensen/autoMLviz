@@ -68,7 +68,7 @@ varImp_ggplot <- function(H2OAutoML_object, save_pngs = F, return_data = F, n_va
 
     highestImpName <- modelImp[1,1]
 
-    model  <- h2o.getModel(highestImpName)
+    model  <- h2o.getModel(as.character(highestImpName))
     varImp <- h2o.varimp(model)
   } else {
     varImp <- h2o.varimp(model)
