@@ -55,7 +55,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
   if (explain == T) {
     p1 <- p1 +
       ggtitle("Gains chart",
-              subtitle = "When we apply the models and select x % of customers,\nwhat % of the target class observations can we expect to hit?")
+              subtitle = "When we apply the models and select x % of customers,\nwhat % of the target class observations can we expect to hit?\n")
 } else {
     p1 <- p1 +
       ggtitle("Gains chart")
@@ -81,7 +81,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
   if (explain == T) {
     p2 <- p2 +
       ggtitle("Lift chart",
-              subtitle = "When we apply the models and select x % of customers,\nhow many times better is that than using no model?")
+              subtitle = "When we apply the models and select x % of customers,\nhow many times better is that than using no model?\n")
   } else {
     p2 <- p2 +
       ggtitle("Lift chart")
@@ -111,7 +111,7 @@ lift4gains2 <- function(H2OAutoML_object, response_ref = NULL, save_pngs = F,
   if (explain == T) {
     p3 <- p3 +
       ggtitle("Response chart",
-              subtitle = "When we apply the model and select x % of customers, \nwhat is the expected % of target class observations in the selection?")
+              subtitle = "When we apply the model and select x % of customers, \nwhat is the expected % of target class observations in the selection?\n")
 } else {
     p3 <- p3 +
       ggtitle("Response chart")
